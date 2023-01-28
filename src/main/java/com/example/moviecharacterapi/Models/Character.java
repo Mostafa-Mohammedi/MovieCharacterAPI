@@ -10,7 +10,6 @@ public class Character {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int character_Id;
-
     @Column(name = "actor_Name", length = 250, nullable = false)
     private String fullName;
 
@@ -19,6 +18,10 @@ public class Character {
 
     @Column(name = "genderType", length = 250, nullable = true)
     private String gender;
+
+    @Column(name = "picture")
+    private String picture;
+
     @ManyToMany
     private Set<Movie> movies;
 
