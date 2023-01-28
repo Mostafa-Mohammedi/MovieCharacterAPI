@@ -1,10 +1,8 @@
 package com.example.moviecharacterapi.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity
 public class Franchise {
 
     @Id
@@ -16,6 +14,8 @@ public class Franchise {
 
     @Column(name = "franchise_Description", length = 500)
     private String franchiseDescription;
+
+
 
 
 

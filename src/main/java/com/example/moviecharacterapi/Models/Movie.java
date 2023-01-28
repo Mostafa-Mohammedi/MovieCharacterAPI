@@ -1,9 +1,8 @@
 package com.example.moviecharacterapi.Models;
-
 import jakarta.persistence.*;
-
 import java.util.Set;
 
+@Entity
 public class Movie {
     @Id
     @Column(name = "id")
@@ -11,8 +10,9 @@ public class Movie {
     private int movieId;
     @Column(name = "movie_title", length = 150)
     private String movieTitle;
-    @Column(name = "genre", length = 20)
-    private Set<String> genre;
+
+    private String genre;
+
 
     @Column(length = 150)
     private String director;
