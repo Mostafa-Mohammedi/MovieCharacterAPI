@@ -11,7 +11,7 @@ public class Movie {
     private int movieId;
     @Column(name = "movie_title", length = 150)
     private String movieTitle;
-    @Column(name = "genre", length = 150)
+    @Column(name = "genre", length = 20)
     private Set<String> genre;
 
     @Column(length = 150)
@@ -22,7 +22,6 @@ public class Movie {
 
     @Column(name = "trailer")
     private String trailer;
-
 
     @ManyToMany
     private Set<Character> movies;
