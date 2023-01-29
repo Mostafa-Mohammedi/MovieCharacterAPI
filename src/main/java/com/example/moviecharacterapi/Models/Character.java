@@ -23,8 +23,11 @@ public class Character {
     @Column(name = "picture")
     private String picture;
 
-    @ManyToMany
+    /*
+    @ManyToMany(mappedBy = "charactersSet")
     private Set<Movie> movies;
+     */
+
 
 
 }

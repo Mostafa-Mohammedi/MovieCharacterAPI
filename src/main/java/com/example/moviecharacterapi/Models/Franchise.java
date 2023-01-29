@@ -2,6 +2,8 @@ package com.example.moviecharacterapi.Models;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class Franchise {
 
@@ -9,12 +11,15 @@ public class Franchise {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int franchise_id;
-    @Column(name = "franchise_Name", length = 200)
+    @Column(name = "name", length = 200)
     private String name;
 
-    @Column(name = "franchise_Description", length = 500)
+    @Column(name = "description", length = 500)
     private String franchiseDescription;
 
+
+    @OneToMany(mappedBy = "movies")
+    private Set<Movie> movies;
 
 
 

@@ -1,29 +1,42 @@
 package com.example.moviecharacterapi.Models;
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.util.Set;
 
 @Entity
+@Data
 public class Movie {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int movieId;
-    @Column(name = "movie_title", length = 150)
-    private String movieTitle;
+    private String title;
+
 
     private String genre;
 
+    private String releaseYear;
 
-    @Column(length = 150)
+
     private String director;
 
-    @Column(name = "picture")
     private String picture;
 
-    @Column(name = "trailer")
     private String trailer;
 
+
+    @ManyToOne
+    @JoinColumn(name = "movies")
+    private Franchise franchise;
+
+/*
+
     @ManyToMany
-    private Set<Character> movies;
+    private Set<Character> charactersSet;
+
+
+     */
+
 
 }
