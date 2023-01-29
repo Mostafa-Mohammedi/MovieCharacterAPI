@@ -25,18 +25,16 @@ public class Movie {
 
     private String trailer;
 
-
     @ManyToOne
-    @JoinColumn(name = "movies")
+    @JoinColumn(name = "franchise_id")
+
     private Franchise franchise;
 
-/*
-
-    @ManyToMany
+    @ManyToMany(mappedBy = "movies")
     private Set<Character> charactersSet;
 
 
-     */
+
 
 
 }
