@@ -20,7 +20,6 @@ public class Character {
 
     private String gender;
 
-    @Column(name = "picture")
     private String picture;
 
     @ManyToMany

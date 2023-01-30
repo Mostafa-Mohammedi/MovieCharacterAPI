@@ -13,10 +13,8 @@ public class Franchise {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int franchise_id;
-    @Column(name = "name", length = 200)
     private String name;
 
-    @Column(name = "description", length = 500)
     private String franchiseDescription;
 
     @OneToMany(mappedBy = "franchise")

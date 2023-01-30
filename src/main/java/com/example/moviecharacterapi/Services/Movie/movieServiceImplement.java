@@ -63,6 +63,7 @@ public class movieServiceImplement implements MovieService{
 
     @Override
     public void deleteMovieByName(String name) {
+
         var movie = movieRepository.findMovieByName(name);
         if(movie != null){
             movieRepository.delete(movie);
@@ -76,11 +77,7 @@ public class movieServiceImplement implements MovieService{
     @Override
     public Collection<Character> updateCharacterInMovie(ArrayList<Integer> listCharacter) {
 
-        Collection<Character> actorList = movieRepository.findCharactersByCharacter_Id(listCharacter);
-
-        characterRepository.saveAll(actorList);
-
-        return actorList;
+        return null;
     }
 
 

@@ -8,6 +8,4 @@ import java.util.Collection;
 
 public interface CharacterRepository extends JpaRepository<Character, Integer> {
 
-    Character findCharacterByName(String name);
-
 }

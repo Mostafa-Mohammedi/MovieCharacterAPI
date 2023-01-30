@@ -27,11 +27,10 @@ public class Movie {
 
     @ManyToOne
     @JoinColumn(name = "franchise_id")
-
     private Franchise franchise;
 
     @ManyToMany(mappedBy = "movies")
-    private Set<Character> charactersSet;
+    private Set<Character> characters;
 
 
 
