@@ -3,10 +3,12 @@ package com.example.moviecharacterapi.Services.Character;
 import com.example.moviecharacterapi.CustomException.CharacterCustomException;
 import com.example.moviecharacterapi.Models.Character;
 import com.example.moviecharacterapi.Repository.CharacterRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 
+@Service
 public class CharacterServiceImplement implements CharacterService{
 
     private final CharacterRepository characterRepository;

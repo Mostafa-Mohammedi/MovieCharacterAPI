@@ -25,6 +25,4 @@ public class Character {
     private Set<Movie> movies;
 
 
-
-
 }

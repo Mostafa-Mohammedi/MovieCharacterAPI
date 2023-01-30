@@ -1,20 +1,26 @@
 package com.example.moviecharacterapi.Services.Franchise;
 
 import com.example.moviecharacterapi.CustomException.FranchiseCustomException;
-import com.example.moviecharacterapi.CustomException.MovieCustomException;
 import com.example.moviecharacterapi.Models.Franchise;
 import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Repository.FranchiseRepository;
+import com.example.moviecharacterapi.Repository.MovieRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Service
 public class FranchiseServiceImplement implements FranchiseService{
 
     private final FranchiseRepository franchiseRepository;
+    private final MovieRepository movieRepository;
 
-    public FranchiseServiceImplement(FranchiseRepository franchiseRepository) {
+    public FranchiseServiceImplement(FranchiseRepository franchiseRepository, MovieRepository movieRepository) {
         this.franchiseRepository = franchiseRepository;
+        this.movieRepository = movieRepository;
     }
     @Override
     public Franchise findById(Integer integer) {
@@ -62,4 +68,17 @@ public class FranchiseServiceImplement implements FranchiseService{
         franchiseRepository.deleteById(franchiseDelete.getFranchise_id());
     }
 
+    @Override
+    public void updateMoviesInFranchise(int franchiseId, int[] listmovieId) {
+        Franchise franchise = franchiseRepository.findById(franchiseId).get();
+        Set<Movie> movieList = new HashSet<>();
+
+        for (int id: listmovieId) {
+            movieList.add(movieRepository.findById(id).get());
+        }
+
+        franchise.setMovies(movieList);
+        franchiseRepository.save(franchise);
+
+    }
 }

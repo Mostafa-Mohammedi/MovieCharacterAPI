@@ -9,7 +9,7 @@ import java.util.Collection;
 public interface MovieService extends CrudServices<Movie, Integer> {
 
     void deleteMovieByName(String name);
-    Collection<Character> updateCharacterInMovie(ArrayList<Integer> listCharacter);
+    void updateCharacterInMovie(int movieId,int[] characters);
 
 
 

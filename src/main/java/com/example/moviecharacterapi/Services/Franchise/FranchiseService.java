@@ -6,6 +6,6 @@ import java.util.Collection;
 
 public interface FranchiseService extends CrudServices<Franchise,  Integer> {
 
-
+    void updateMoviesInFranchise(int franchiseId, int[] listmovieId);
 
 }

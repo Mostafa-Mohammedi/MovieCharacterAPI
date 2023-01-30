@@ -5,11 +5,12 @@ import com.example.moviecharacterapi.Models.Character;
 import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Repository.CharacterRepository;
 import com.example.moviecharacterapi.Repository.MovieRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
+
+@Service
 public class movieServiceImplement implements MovieService{
 
     private final MovieRepository movieRepository;
@@ -75,15 +76,21 @@ public class movieServiceImplement implements MovieService{
     }
 
     @Override
-    public Collection<Character> updateCharacterInMovie(ArrayList<Integer> listCharacter) {
-
-        return null;
+    public void updateCharacterInMovie(int movieId, int[] characters) {
+        Movie movie = movieRepository.findById(movieId).get();
+        Set<Character> characterSet = new HashSet<>();
+        for (int id: characters) {
+            characterSet.add(characterRepository.findById(id).get());
+        }
+        movie.setCharacter(characterSet);
+        movieRepository.save(movie);
     }
 
 
     @Override
     public void deleteById(Integer id) {
         var movieDelete = movieRepository.findById(id).orElseThrow(() -> new MovieCustomException(id));
+        movieDelete.setFranchise(null);
         movieRepository.deleteById(movieDelete.getMovie_id());
     }
 }
