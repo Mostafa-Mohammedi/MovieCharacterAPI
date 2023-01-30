@@ -1,5 +1,4 @@
 package com.example.moviecharacterapi.Services.Character;
-
 import com.example.moviecharacterapi.CustomException.CharacterCustomException;
 import com.example.moviecharacterapi.Models.Character;
 import com.example.moviecharacterapi.Repository.CharacterRepository;
@@ -30,7 +29,6 @@ public class CharacterServiceImplement implements CharacterService{
         else {
             throw new CharacterCustomException();
         }
-
     }
 
     @Override
@@ -50,8 +48,9 @@ public class CharacterServiceImplement implements CharacterService{
         List<Character> listCharacter = characterRepository.findAll();
 
         for (Character actor : listCharacter) {
-            if(entity.getFullname().equals(actor.getFullname())){
-                return characterRepository.save(actor);
+            if(entity.getCharacter_Id() == actor.getCharacter_Id()){
+                return characterRepository.save(entity);
+
             }
         }
         throw new CharacterCustomException("actor doesnt exist, cannot update");

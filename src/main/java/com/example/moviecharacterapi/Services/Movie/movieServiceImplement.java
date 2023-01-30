@@ -50,13 +50,12 @@ public class movieServiceImplement implements MovieService{
     }
 
     @Override
-    public Movie update(Movie entity) {
+    public Movie update(Movie movie) {
 
         List<Movie> listMovies = movieRepository.findAll();
-
-        for (Movie movie: listMovies) {
-            if(movieRepository.findMovieByName(entity.getTitle()).equals(movie.getTitle())){
-                return movieRepository.save(entity);
+        for (Movie mov: listMovies) {
+            if(movieRepository.findById(mov.getMovie_id()).isPresent()){
+                return movieRepository.save(mov);
             }
         }
         throw  new MovieCustomException("movie doesnt exist, cannot update");
@@ -79,6 +78,10 @@ public class movieServiceImplement implements MovieService{
     public void updateCharacterInMovie(int movieId, int[] characters) {
         Movie movie = movieRepository.findById(movieId).get();
         Set<Character> characterSet = new HashSet<>();
+
+        if(characters.length == 0){
+            throw new MovieCustomException("the list is empty ");
+        }
         for (int id: characters) {
             characterSet.add(characterRepository.findById(id).get());
         }

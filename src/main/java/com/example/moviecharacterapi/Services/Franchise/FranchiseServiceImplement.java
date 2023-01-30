@@ -54,9 +54,8 @@ public class FranchiseServiceImplement implements FranchiseService{
         List<Franchise> franchiseList = franchiseRepository.findAll();
 
         for ( Franchise franchise: franchiseList) {
-            if(!franchiseRepository.findFranchiseByName(entity.getName()).equals(franchise.getName())){
+            if(entity.getFranchise_id() == franchise.getFranchise_id())
                 return franchiseRepository.save(entity);
-            }
         }
         throw  new FranchiseCustomException("movie doesnt exist, cannot update");
     }
