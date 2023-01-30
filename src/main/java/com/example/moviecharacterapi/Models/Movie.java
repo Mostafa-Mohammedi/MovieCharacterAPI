@@ -10,13 +10,13 @@ public class Movie {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int movieId;
+    private int movie_id;
     private String title;
 
 
     private String genre;
 
-    private String releaseYear;
+    private String year;
 
 
     private String director;
@@ -30,7 +30,7 @@ public class Movie {
     private Franchise franchise;
 
     @ManyToMany(mappedBy = "movies")
-    private Set<Character> characters;
+    private Set<Character> character;
 
 
 

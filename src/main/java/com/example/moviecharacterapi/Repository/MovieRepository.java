@@ -11,7 +11,5 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     @Query("select u from Movie u where u.title = ?1")
     Movie findMovieByName(String name);
-
-    Collection<Character> findCharactersByCharacter_Id(ArrayList<Integer> listCharacter);
-
+    
 }

@@ -84,6 +84,6 @@ public class movieServiceImplement implements MovieService{
     @Override
     public void deleteById(Integer id) {
         var movieDelete = movieRepository.findById(id).orElseThrow(() -> new MovieCustomException(id));
-        movieRepository.deleteById(movieDelete.getMovieId());
+        movieRepository.deleteById(movieDelete.getMovie_id());
     }
 }
