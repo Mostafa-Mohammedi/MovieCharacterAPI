@@ -15,13 +15,13 @@ public class Characters {
     private int id;
 
     @Column(length = 50, nullable = false)
-    private String  fullName;
+    private String  fullname;
 
     private String alias;
 
     private String gender;
 
-    private Blob picture;
+    private String picture;
 
     @ManyToMany
     private Set<Movies> movies;

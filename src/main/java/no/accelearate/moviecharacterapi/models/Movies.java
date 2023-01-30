@@ -19,13 +19,13 @@ public class Movies {
 
     private String  genre;
 
-    private LocalDate releaseYear;
+    private String releaseyear;
 
     private String director;
 
-    private Blob picture;
+    private String picture;
 
-    private Blob trailer;
+    private String trailer;
 
     @ManyToOne
     @JoinColumn(name = "franchise_id")
