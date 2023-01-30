@@ -21,6 +21,10 @@ public class MovieController {
         return ResponseEntity.ok(movieService.findAll());
     }
 
+    @GetMapping("/getAll/character/{id}")
+    public ResponseEntity findAllCharacterInMovie(@PathVariable int id){
+        return ResponseEntity.ok(movieService.getCharacterMovie(id));
+    }
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id){
         return ResponseEntity.ok(movieService.findById(id));

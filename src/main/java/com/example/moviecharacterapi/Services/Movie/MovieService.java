@@ -11,6 +11,10 @@ public interface MovieService extends CrudServices<Movie, Integer> {
     void deleteMovieByName(String name);
     void updateCharacterInMovie(int movieId,int[] characters);
 
+    Collection<Character> getCharacterMovie(int movieId);
+
+
+
 
 
 }

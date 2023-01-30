@@ -89,6 +89,11 @@ public class movieServiceImplement implements MovieService{
         movieRepository.save(movie);
     }
 
+    @Override
+    public Collection<Character> getCharacterMovie(int movieId) {
+        return movieRepository.findById(movieId).get().getCharacter();
+    }
+
 
     @Override
     public void deleteById(Integer id) {

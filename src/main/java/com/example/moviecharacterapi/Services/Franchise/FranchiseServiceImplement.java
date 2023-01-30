@@ -80,4 +80,9 @@ public class FranchiseServiceImplement implements FranchiseService{
         franchiseRepository.save(franchise);
 
     }
+
+    @Override
+    public Collection<Movie> getAllMoviesInfranchise(int franchiseId) {
+        return franchiseRepository.findById(franchiseId).get().getMovies();
+    }
 }

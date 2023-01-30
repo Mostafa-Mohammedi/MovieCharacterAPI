@@ -19,6 +19,11 @@ public class FranchiseController {
     public ResponseEntity findAllFranchise(){
         return ResponseEntity.ok(franchiseService.findAll());
     }
+
+    @GetMapping("/getAll/movies/{id}")
+    public ResponseEntity findAllCharacterInMovie(@PathVariable int id){
+        return ResponseEntity.ok(franchiseService.getAllMoviesInfranchise(id));
+    }
     @GetMapping("/{id}")
     public ResponseEntity findfranchiseById(@PathVariable int id){
         return ResponseEntity.ok(franchiseService.findById(id));
