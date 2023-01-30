@@ -1,4 +1,4 @@
-package com.example.moviecharacterapi;
+package no.accelearate.moviecharacterapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +10,7 @@ public class MovieCharacterApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MovieCharacterApiApplication.class, args);
+
     }
 
 }
