@@ -28,13 +28,13 @@ public class CharacterController {
     @PostMapping("/add")
     public ResponseEntity createCharacter(@RequestBody Character character) throws URISyntaxException {
         characterService.add(character);
-        URI uri = new URI("api/v1/character/add/" + character.getCharacter_Id());
+        URI uri = new URI("api/v1/character/add/" + character.getId());
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateCharacter(@RequestBody Character character, @PathVariable int id){
-        if(id != character.getCharacter_Id()){
+        if(id != character.getId()){
             return ResponseEntity.badRequest().build();
         }
         characterService.update(character);

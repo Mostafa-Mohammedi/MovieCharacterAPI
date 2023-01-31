@@ -31,13 +31,13 @@ public class FranchiseController {
     @PostMapping("/add")
     public ResponseEntity createCharacter(@RequestBody Franchise franchise) throws URISyntaxException {
         franchiseService.add(franchise);
-        URI uri = new URI("api/v1/character/add/" + franchise.getFranchise_id());
+        URI uri = new URI("api/v1/character/add/" + franchise.getId());
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateCharacter(@RequestBody Franchise franchise, @PathVariable int id){
-        if(id != franchise.getFranchise_id()){
+        if(id != franchise.getId()){
             return ResponseEntity.badRequest().build();
         }
         franchiseService.update(franchise);

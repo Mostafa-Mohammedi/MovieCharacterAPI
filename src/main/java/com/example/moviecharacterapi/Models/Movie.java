@@ -8,16 +8,14 @@ import java.util.Set;
 @Data
 public class Movie {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int movie_id;
+    private int id;
     private String title;
 
 
     private String genre;
 
     private String year;
-
 
     private String director;
 

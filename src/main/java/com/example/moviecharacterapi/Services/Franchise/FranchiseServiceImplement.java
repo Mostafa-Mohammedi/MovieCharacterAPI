@@ -1,6 +1,7 @@
 package com.example.moviecharacterapi.Services.Franchise;
 
 import com.example.moviecharacterapi.CustomException.FranchiseCustomException;
+import com.example.moviecharacterapi.Models.Character;
 import com.example.moviecharacterapi.Models.Franchise;
 import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Repository.FranchiseRepository;
@@ -54,7 +55,7 @@ public class FranchiseServiceImplement implements FranchiseService{
         List<Franchise> franchiseList = franchiseRepository.findAll();
 
         for ( Franchise franchise: franchiseList) {
-            if(entity.getFranchise_id() == franchise.getFranchise_id())
+            if(entity.getId() == franchise.getId())
                 return franchiseRepository.save(entity);
         }
         throw  new FranchiseCustomException("movie doesnt exist, cannot update");
@@ -64,7 +65,7 @@ public class FranchiseServiceImplement implements FranchiseService{
     public void deleteById(Integer integer) {
 
         var franchiseDelete = franchiseRepository.findById(integer).orElseThrow(()-> new FranchiseCustomException(integer));
-        franchiseRepository.deleteById(franchiseDelete.getFranchise_id());
+        franchiseRepository.deleteById(franchiseDelete.getId());
     }
 
     @Override
@@ -84,5 +85,20 @@ public class FranchiseServiceImplement implements FranchiseService{
     @Override
     public Collection<Movie> getAllMoviesInfranchise(int franchiseId) {
         return franchiseRepository.findById(franchiseId).get().getMovies();
+    }
+    public Set<Character> getAllCharacterFromFranchise(int franchiseId, int movieId){
+        Set<Movie> movieList = new HashSet<>();
+        Set<Movie>  moviesInFranchise = franchiseRepository.findById(franchiseId).get().getMovies();
+        for (int i = 0; i < moviesInFranchise.size(); i++) {
+            if(movieRepository.findById(movieId).get().equals(moviesInFranchise.iterator()));
+
+
+        }
+        Movie movie = movieRepository.findById(movieId).get();
+        return movie.getCharacter();
+
+
+
+
     }
 }

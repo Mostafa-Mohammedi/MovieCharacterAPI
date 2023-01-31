@@ -2,6 +2,7 @@ package com.example.moviecharacterapi.Services.Movie;
 
 import com.example.moviecharacterapi.CustomException.MovieCustomException;
 import com.example.moviecharacterapi.Models.Character;
+import com.example.moviecharacterapi.Models.DTO.Movie.MovieGetDTO;
 import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Repository.CharacterRepository;
 import com.example.moviecharacterapi.Repository.MovieRepository;
@@ -54,11 +55,11 @@ public class movieServiceImplement implements MovieService{
 
         List<Movie> listMovies = movieRepository.findAll();
         for (Movie mov: listMovies) {
-            if(movieRepository.findById(mov.getMovie_id()).isPresent()){
+            if(movieRepository.findById(mov.getId()).isPresent()){
                 return movieRepository.save(mov);
             }
         }
-        throw  new MovieCustomException("movie doesnt exist, cannot update");
+        throw new MovieCustomException("movie doesnt exist, cannot update");
     }
 
     @Override
@@ -99,6 +100,6 @@ public class movieServiceImplement implements MovieService{
     public void deleteById(Integer id) {
         var movieDelete = movieRepository.findById(id).orElseThrow(() -> new MovieCustomException(id));
         movieDelete.setFranchise(null);
-        movieRepository.deleteById(movieDelete.getMovie_id());
+        movieRepository.deleteById(movieDelete.getId());
     }
 }

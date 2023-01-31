@@ -1,6 +1,8 @@
 package com.example.moviecharacterapi.Services.Character;
 import com.example.moviecharacterapi.CustomException.CharacterCustomException;
 import com.example.moviecharacterapi.Models.Character;
+import com.example.moviecharacterapi.Models.DTO.Movie.MovieGetDTO;
+import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Repository.CharacterRepository;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +50,7 @@ public class CharacterServiceImplement implements CharacterService{
         List<Character> listCharacter = characterRepository.findAll();
 
         for (Character actor : listCharacter) {
-            if(entity.getCharacter_Id() == actor.getCharacter_Id()){
+            if(entity.getId() == actor.getId()){
                 return characterRepository.save(entity);
 
             }
@@ -59,6 +61,6 @@ public class CharacterServiceImplement implements CharacterService{
     @Override
     public void deleteById(Integer integer) {
         var deleteActor = characterRepository.findById(integer).orElseThrow(()-> new CharacterCustomException(integer));
-        characterRepository.deleteById(deleteActor.getCharacter_Id());
+        characterRepository.deleteById(deleteActor.getId());
     }
 }
