@@ -13,8 +13,7 @@ public class Character {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int character_Id;
-    @Column(name = "actor_name", length = 250, nullable = false)
-    private String fullName;
+    private String fullname;
 
     private String alias;
 

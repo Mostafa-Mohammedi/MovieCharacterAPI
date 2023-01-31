@@ -35,7 +35,7 @@ public class CharacterServiceImplement implements CharacterService{
     public Character add(Character entity) {
         List<Character> listCharacter = characterRepository.findAll();
         for (Character actor: listCharacter) {
-            if(!entity.getFullName().equals(actor.getFullName())){
+            if(!entity.getFullname().equals(actor.getFullname())){
                 return  characterRepository.save(entity);
             }
 
@@ -48,7 +48,7 @@ public class CharacterServiceImplement implements CharacterService{
         List<Character> listCharacter = characterRepository.findAll();
 
         for (Character actor : listCharacter) {
-            if(entity.getFullName().equals(actor.getFullName())){
+            if(entity.getFullname().equals(actor.getFullname())){
                 return characterRepository.save(actor);
             }
         }

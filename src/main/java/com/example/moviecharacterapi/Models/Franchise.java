@@ -15,7 +15,7 @@ public class Franchise {
     private int franchise_id;
     private String name;
 
-    private String franchiseDescription;
+    private String description;
 
     @OneToMany(mappedBy = "franchise")
     private Set <Movie> movies;
