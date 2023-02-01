@@ -51,14 +51,7 @@ public class FranchiseServiceImplement implements FranchiseService{
     }
     @Override
     public Franchise update(Franchise entity) {
-
-        List<Franchise> franchiseList = franchiseRepository.findAll();
-
-        for ( Franchise franchise: franchiseList) {
-            if(entity.getId() == franchise.getId())
-                return franchiseRepository.save(entity);
-        }
-        throw  new FranchiseCustomException("movie doesnt exist, cannot update");
+        return franchiseRepository.save(entity);
     }
 
     @Override

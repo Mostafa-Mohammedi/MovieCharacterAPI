@@ -1,6 +1,8 @@
 package com.example.moviecharacterapi.Controller;
+import com.example.moviecharacterapi.Mapper.FranchiseMapper;
 import com.example.moviecharacterapi.Mapper.MovieMapper;
-import com.example.moviecharacterapi.Models.DTO.Movie.MovieGetDTO;
+import com.example.moviecharacterapi.Models.DTO.Movie.MovieDTO;
+import com.example.moviecharacterapi.Models.DTO.Movie.UpdateMovieDTO;
 import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Services.Movie.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +22,6 @@ import java.net.URISyntaxException;
 public class MovieController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
-
     public MovieController(MovieService movieService, MovieMapper movieMapper) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
@@ -39,7 +40,7 @@ public class MovieController {
                     description = "Succeeded fetching",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema =  @Schema(implementation = MovieGetDTO.class)))
+                                    array = @ArraySchema(schema = @Schema(implementation = MovieDTO.class)))
                     }),
             @ApiResponse(
                     responseCode = "404",
@@ -60,7 +61,7 @@ public class MovieController {
                     description = "Succeeded fetching",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = MovieGetDTO.class))
+                                    schema = @Schema(implementation = MovieDTO.class))
                     }),
             @ApiResponse(
                     responseCode =  "500",
@@ -70,9 +71,10 @@ public class MovieController {
                             schema = @Schema(implementation = ProblemDetail.class))
                     })
     })
+
     public ResponseEntity findById(@PathVariable int id){
 
-        return ResponseEntity.ok(movieMapper.movieGetDTO(
+        return ResponseEntity.ok(movieMapper.movieDTO(
                 movieService.findById(id)
         ));
     }
@@ -85,11 +87,11 @@ public class MovieController {
                     description = "Created",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = MovieGetDTO.class))
+                                    schema = @Schema(implementation = MovieDTO.class))
                     })
     })
-    public ResponseEntity create(@RequestBody Movie movie) throws URISyntaxException {
-        movieService.add(movie);
+    public ResponseEntity create(@RequestBody UpdateMovieDTO movie) throws URISyntaxException {
+        movieService.add(movieMapper.updateMovie(movie));
         URI uri = new URI("api/v1/movies/add/" + movie.getId());
         return ResponseEntity.created(uri).build();
     }
@@ -98,8 +100,8 @@ public class MovieController {
     @Operation(summary = "Update a movie entity")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "201",
-                    description = "created",
+                    responseCode = "204",
+                    description = "Update the movie",
                     content = @Content
             ),
             @ApiResponse(
@@ -111,12 +113,20 @@ public class MovieController {
                     })
     })
 
-    public ResponseEntity update(@RequestBody Movie movieEntity, @PathVariable int id){
+    public ResponseEntity update(@RequestBody UpdateMovieDTO movieEntity, @PathVariable int id){
         if(id != movieEntity.getId()){
             return ResponseEntity.badRequest().build();
         }
-        movieService.update(movieEntity);
-        return ResponseEntity.noContent().build();
+
+        Movie movies = movieService.update(movieMapper.updateMovie(movieEntity));
+        if(movies.getTitle().equals(movieEntity.getTitle())){
+            return ResponseEntity.noContent().build();
+        }
+
+        else{
+            return ResponseEntity.badRequest().build();
+
+        }
     }
 
     @PutMapping("/updates/{id}")
@@ -128,7 +138,7 @@ public class MovieController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = MovieGetDTO.class)))
+                                    array = @ArraySchema(schema = @Schema(implementation = MovieDTO.class)))
                     }),
             @ApiResponse(
                     responseCode = "400",

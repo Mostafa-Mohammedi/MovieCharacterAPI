@@ -1,5 +1,7 @@
 package com.example.moviecharacterapi.Controller;
+import com.example.moviecharacterapi.Mapper.FranchiseMapper;
 import com.example.moviecharacterapi.Models.Franchise;
+import com.example.moviecharacterapi.Models.FranchiseDTO.UpdateFranchiseDTO;
 import com.example.moviecharacterapi.Services.Franchise.FranchiseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +12,17 @@ import java.net.URISyntaxException;
 @RequestMapping(path = "api/v1/Franchise")
 public class FranchiseController {
     private final FranchiseService franchiseService;
+    private final FranchiseMapper franchiseMapper;
 
-    public FranchiseController(FranchiseService franchiseService) {
+    public FranchiseController(FranchiseService franchiseService, FranchiseMapper franchiseMapper) {
         this.franchiseService = franchiseService;
+        this.franchiseMapper = franchiseMapper;
     }
+
 
     @GetMapping("/getAll")
     public ResponseEntity findAllFranchise(){
-        return ResponseEntity.ok(franchiseService.findAll());
+        return ResponseEntity.ok(franchiseMapper.listFranchiseDTo(franchiseService.findAll()));
     }
 
     @GetMapping("/getAll/movies/{id}")
@@ -26,7 +31,7 @@ public class FranchiseController {
     }
     @GetMapping("/{id}")
     public ResponseEntity findfranchiseById(@PathVariable int id){
-        return ResponseEntity.ok(franchiseService.findById(id));
+        return ResponseEntity.ok(franchiseMapper.franchiseDTO(franchiseService.findById(id)));
     }
     @PostMapping("/add")
     public ResponseEntity createCharacter(@RequestBody Franchise franchise) throws URISyntaxException {
@@ -36,11 +41,11 @@ public class FranchiseController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity updateCharacter(@RequestBody Franchise franchise, @PathVariable int id){
+    public ResponseEntity updateFranchise(@RequestBody UpdateFranchiseDTO franchise, @PathVariable int id){
         if(id != franchise.getId()){
             return ResponseEntity.badRequest().build();
         }
-        franchiseService.update(franchise);
+        franchiseService.update(franchiseMapper.updateFranchise(franchise));
         return ResponseEntity.noContent().build();
     }
 

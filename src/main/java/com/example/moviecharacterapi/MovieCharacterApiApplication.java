@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "APi for CRUD operation Movie, Character and Franchise.", version = "1.0.0"),
+@OpenAPIDefinition(info = @Info(title = "API for CRUD operation Movie, Character and Franchise.", version = "1.0.0"),
         servers = {@Server(url = "Http://localhost:8080",description = "localhost for Crud operation")})
 public class MovieCharacterApiApplication {
     public static void main(String[] args) {

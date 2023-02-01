@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class MovieGetDTO {
+public class MovieDTO {
     private int Id;
     private String title;
     private String year;
@@ -14,5 +14,6 @@ public class MovieGetDTO {
 
     private String trailer;
     private int franchises;
+    private Set<Integer> character;
 
 }

@@ -22,5 +22,4 @@ public class Character {
     @ManyToMany
     private Set<Movie> movies;
 
-
 }

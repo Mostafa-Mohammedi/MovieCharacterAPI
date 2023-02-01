@@ -1,8 +1,6 @@
 package com.example.moviecharacterapi.Services.Character;
 import com.example.moviecharacterapi.CustomException.CharacterCustomException;
 import com.example.moviecharacterapi.Models.Character;
-import com.example.moviecharacterapi.Models.DTO.Movie.MovieGetDTO;
-import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Repository.CharacterRepository;
 import org.springframework.stereotype.Service;
 
@@ -47,15 +45,7 @@ public class CharacterServiceImplement implements CharacterService{
 
     @Override
     public Character update(Character entity) {
-        List<Character> listCharacter = characterRepository.findAll();
-
-        for (Character actor : listCharacter) {
-            if(entity.getId() == actor.getId()){
-                return characterRepository.save(entity);
-
-            }
-        }
-        throw new CharacterCustomException("actor doesnt exist, cannot update");
+        return characterRepository.save(entity);
     }
 
     @Override
