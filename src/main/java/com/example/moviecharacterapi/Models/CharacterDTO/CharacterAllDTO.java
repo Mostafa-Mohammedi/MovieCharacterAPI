@@ -1,11 +1,8 @@
 package com.example.moviecharacterapi.Models.CharacterDTO;
 
-import lombok.Data;
-
 import java.util.Set;
 
-@Data
-public class CharacterDTO {
+public class CharacterAllDTO {
     private int id;
     private String fullname;
 
@@ -14,4 +11,7 @@ public class CharacterDTO {
     private String gender;
 
     private String picture;
+
+    private Set<Integer> movies;
+
 }

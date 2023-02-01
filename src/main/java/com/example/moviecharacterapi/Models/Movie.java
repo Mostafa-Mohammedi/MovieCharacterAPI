@@ -1,8 +1,13 @@
 package com.example.moviecharacterapi.Models;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
 
 import java.util.Set;
+
+import static jakarta.persistence.CascadeType.DETACH;
+import static jakarta.persistence.CascadeType.PERSIST;
+import static org.hibernate.annotations.OnDeleteAction.*;
 
 @Entity
 @Data
@@ -27,7 +32,7 @@ public class Movie {
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "movies")
     private Set<Character> character;
 
 

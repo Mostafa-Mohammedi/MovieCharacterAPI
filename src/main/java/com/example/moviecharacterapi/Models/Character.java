@@ -18,7 +18,6 @@ public class Character {
     private String gender;
 
     private String picture;
-
     @ManyToMany
     private Set<Movie> movies;
 

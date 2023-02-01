@@ -1,9 +1,5 @@
-package com.example.moviecharacterapi.Models.DTO.Movie;
-
+package com.example.moviecharacterapi.Models.MovieDTO;
 import lombok.Data;
-
-import java.util.Set;
-
 @Data
 public class MovieDTO {
     private int Id;
@@ -11,9 +7,6 @@ public class MovieDTO {
     private String year;
     private String director;
     private String picture;
-
     private String trailer;
-    private int franchises;
-    private Set<Integer> character;
 
 }

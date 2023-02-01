@@ -10,7 +10,7 @@ public class MovieCustomException extends EntityNotFoundException {
     }
 
     public MovieCustomException(int id) {
-        super("Movie doesnt exist with id: " + id);
+        super("Movies doesnt exist with id: " + id);
     }
 
 

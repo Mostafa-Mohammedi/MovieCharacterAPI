@@ -1,8 +1,8 @@
 package com.example.moviecharacterapi.Mapper;
 
 import com.example.moviecharacterapi.Models.Character;
-import com.example.moviecharacterapi.Models.DTO.Movie.MovieDTO;
-import com.example.moviecharacterapi.Models.DTO.Movie.UpdateMovieDTO;
+import com.example.moviecharacterapi.Models.MovieDTO.MovieAllDTO;
+import com.example.moviecharacterapi.Models.MovieDTO.MovieDTO;
 import com.example.moviecharacterapi.Models.Movie;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,11 +15,15 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
     @Mapping(target = "franchises", source = "franchise.id")
-    @Mapping(target = "character", qualifiedByName = "listTesting")
+    @Mapping(target = "characters", source = "character", qualifiedByName = "listTesting")
+    MovieAllDTO movieDTO(Movie movie);
+    Movie updateMovie(MovieDTO movieDTO);
+    Movie CreateMovie(MovieDTO movieCreateDTO);
 
-    MovieDTO movieDTO(Movie movie);
-    Movie updateMovie(UpdateMovieDTO movieDTO);
-    Collection<MovieDTO> listMovieDTO(Collection<Movie> movies);
+    Movie deleteMovie(MovieDTO movieDTO);
+
+    Collection<MovieAllDTO> listMovieDTO(Collection<Movie> movies);
+
 
     @Named(value = "listTesting")
     default Set<Integer> map(Set<Character> value){

@@ -1,10 +1,11 @@
-package com.example.moviecharacterapi.Services.Movie;
-
+package com.example.moviecharacterapi.Services.Movies;
 import com.example.moviecharacterapi.CustomException.MovieCustomException;
 import com.example.moviecharacterapi.Models.Character;
 import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Repository.CharacterRepository;
 import com.example.moviecharacterapi.Repository.MovieRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,6 +16,8 @@ public class movieServiceImplement implements MovieService{
 
     private final MovieRepository movieRepository;
     private final CharacterRepository characterRepository;
+    private final Logger logger = LoggerFactory.getLogger(movieServiceImplement.class);
+
 
     public movieServiceImplement(MovieRepository movieRepository, CharacterRepository characterRepository) {
         this.movieRepository = movieRepository;
@@ -54,18 +57,7 @@ public class movieServiceImplement implements MovieService{
         return movieRepository.save(movie);
     }
 
-    @Override
-    public void deleteMovieByName(String name) {
 
-        var movie = movieRepository.findMovieByName(name);
-        if(movie != null){
-            movieRepository.delete(movie);
-        }
-        else{
-            throw new MovieCustomException("didnt find the movie, check for spelling");
-        }
-
-    }
 
     @Override
     public void updateCharacterInMovie(int movieId, int[] characters) {
@@ -89,9 +81,15 @@ public class movieServiceImplement implements MovieService{
 
 
     @Override
+//    @Transactional
     public void deleteById(Integer id) {
-        var movieDelete = movieRepository.findById(id).orElseThrow(() -> new MovieCustomException(id));
-        movieDelete.setFranchise(null);
-        movieRepository.deleteById(movieDelete.getId());
+        if(movieRepository.existsById(id)){
+            Movie movieDelete = movieRepository.findById(id).get();
+            movieDelete.getCharacter().forEach(s -> s.setMovies(null));
+            movieRepository.delete(movieDelete);
+        }
+        else{
+            logger.warn("No movie exists with ID: " + id);        }
+
     }
 }
