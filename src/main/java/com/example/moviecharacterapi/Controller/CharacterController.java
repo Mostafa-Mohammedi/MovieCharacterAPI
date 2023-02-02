@@ -1,5 +1,6 @@
 package com.example.moviecharacterapi.Controller;
 import com.example.moviecharacterapi.Mapper.CharacterMapper;
+import com.example.moviecharacterapi.Models.CharacterDTO.CharacterAllDTO;
 import com.example.moviecharacterapi.Models.CharacterDTO.CharacterDTO;
 import com.example.moviecharacterapi.Services.Character.CharacterService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,13 +19,19 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping(path = "api/v1/Characters")
 public class CharacterController {
-    private final CharacterService characterService;
+
+    private  final CharacterService characterService;
     private CharacterMapper characterMapper;
+
+
+
 
     public CharacterController(CharacterService characterService, CharacterMapper characterMapper) {
         this.characterService = characterService;
         this.characterMapper = characterMapper;
     }
+
+
 
     @GetMapping("/getAll")
     @Operation(summary = "Gets all the Franchise in the database")
@@ -35,7 +42,7 @@ public class CharacterController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = CharacterDTO.class)))
+                                    array = @ArraySchema(schema = @Schema(implementation = CharacterAllDTO.class)))
                     }),
             @ApiResponse(
                     responseCode = "404",
@@ -138,9 +145,6 @@ public class CharacterController {
         characterService.deleteById(id);
         return  ResponseEntity.noContent().build();
     }
-
-
-
 
 
 }

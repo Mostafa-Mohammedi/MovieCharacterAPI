@@ -38,7 +38,11 @@ public class FranchiseServiceImplement implements FranchiseService{
      */
     @Override
     public Franchise findById(Integer integer) {
-        return franchiseRepository.findById(integer).orElseThrow(() -> new FranchiseCustomException(integer));
+        Franchise franchise=franchiseRepository.findById(integer).get();
+
+        franchise.setMovies( movieRepository.findAllByFranchiseId(integer));
+
+        return franchise;
     }
 
     /**
@@ -49,7 +53,11 @@ public class FranchiseServiceImplement implements FranchiseService{
     @Override
     public Collection<Franchise> findAll() {
         if(franchiseRepository.findAll().size() != 0){
-            return franchiseRepository.findAll();
+            Collection<Franchise> franchises=  franchiseRepository.findAll();
+            franchises.stream().forEach(franchise -> {
+                franchise.setMovies(movieRepository.findAllByFranchiseId(franchise.getId()));
+            });
+            return franchises;
         }
         else{
             throw new FranchiseCustomException();
@@ -86,9 +94,11 @@ public class FranchiseServiceImplement implements FranchiseService{
     public void deleteById(Integer integer) {
 
         if(franchiseRepository.existsById(integer)){
-            Franchise movieDelete = franchiseRepository.findById(integer).get();
-            movieDelete.getMovies().forEach(s -> s.setFranchise(null));
-            franchiseRepository.delete(movieDelete);
+            Franchise franchise = franchiseRepository.findById(integer).get();
+            Collection<Movie> movies=getAllMoviesInfranchise(integer);
+            movieRepository.deleteAll(movies);
+
+            franchiseRepository.delete(franchise);
         }
     }
 
@@ -118,7 +128,7 @@ public class FranchiseServiceImplement implements FranchiseService{
      */
     @Override
     public Collection<Movie> getAllMoviesInfranchise(int franchiseId) {
-        return franchiseRepository.findById(franchiseId).get().getMovies();
+        return movieRepository.findAllByFranchiseId(franchiseId);
     }
 
     /**
@@ -128,16 +138,13 @@ public class FranchiseServiceImplement implements FranchiseService{
      * @return a collection of character
      */
     public Collection<Character> getAllCharacterFromFranchise(int franchiseId, int movieId){
-        Collection<Movie> listMovies =  franchiseRepository.findById(franchiseId).get().getMovies();
-        Movie correctMovie = movieRepository.findById(movieId).get();
-        for (Movie movie: listMovies) {
-            if(movie.equals(correctMovie)){
-                return movieRepository.findById(movieId).get().getCharacters();
-            }
+        Collection<Movie> listMovies=getAllMoviesInfranchise(franchiseId);
+        Movie myMovie=listMovies.stream().filter(movie -> movie.getId()==movieId).findFirst().get();
 
-        }
-        throw  new MovieCustomException("the franchise doesnt have the character");
+        return myMovie.getCharacters();
     }
+
+
 
 
 

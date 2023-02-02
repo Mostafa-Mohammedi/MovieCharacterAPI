@@ -13,4 +13,6 @@ public interface FranchiseRepository extends JpaRepository<Franchise, Integer> {
 
 
 
+
+
 }

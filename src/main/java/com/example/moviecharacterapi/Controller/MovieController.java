@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 public class MovieController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
+
     public MovieController(MovieService movieService, MovieMapper movieMapper) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
@@ -178,4 +179,11 @@ public class MovieController {
         movieService.updateCharacterInMovie(id,characters);
         return  ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/getCharacter/movie/{id}")
+    public ResponseEntity getCharacterInMovies(@PathVariable int id){
+        movieService.getCharacterMovie(id);
+        return  ResponseEntity.ok(movieService.getCharacterMovie(id));
+    }
+
 }

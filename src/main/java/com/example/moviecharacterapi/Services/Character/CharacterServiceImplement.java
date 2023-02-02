@@ -1,11 +1,15 @@
 package com.example.moviecharacterapi.Services.Character;
 import com.example.moviecharacterapi.CustomException.CharacterCustomException;
 import com.example.moviecharacterapi.Models.Character;
+import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Repository.CharacterRepository;
+import com.example.moviecharacterapi.Repository.MovieRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * The character service implementation.
@@ -15,9 +19,11 @@ import java.util.List;
 public class CharacterServiceImplement implements CharacterService{
 
     private final CharacterRepository characterRepository;
+    private final MovieRepository movieRepository;
 
-    public CharacterServiceImplement(CharacterRepository characterRepository) {
+    public CharacterServiceImplement(CharacterRepository characterRepository, MovieRepository movieRepository) {
         this.characterRepository = characterRepository;
+        this.movieRepository = movieRepository;
     }
 
     /**
@@ -38,7 +44,8 @@ public class CharacterServiceImplement implements CharacterService{
     @Override
     public Collection<Character> findAll() {
         if(characterRepository.findAll().size() > 0){
-            return characterRepository.findAll();
+            Collection<Character> characters=characterRepository.findAll();
+            return characters;
         }
         else {
             throw new CharacterCustomException();
@@ -79,7 +86,14 @@ public class CharacterServiceImplement implements CharacterService{
     @Override
     public void deleteById(Integer integer) {
         var deleteActor = characterRepository.findById(integer).get();
-        deleteActor.getMovies().forEach(s -> deleteActor.setMovies(null));
+        Set<Movie> movies= movieRepository.findAll().stream().filter(movie ->
+            movie.getCharacters().contains(deleteActor)).collect(Collectors.toSet());
+
+
+        movieRepository.deleteAll(movies);
+
+      //  deleteActor.getMovies().forEach(s -> deleteActor.setMovies(null));
         characterRepository.delete(deleteActor);
     }
+
 }

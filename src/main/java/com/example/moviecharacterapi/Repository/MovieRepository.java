@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Movie JPA repository is in charge of the crud operation for movies
@@ -16,6 +17,6 @@ import java.util.Collection;
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
 
-
+    Set<Movie> findAllByFranchiseId(Integer franchiseId);
 
 }

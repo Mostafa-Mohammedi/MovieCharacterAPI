@@ -1,4 +1,6 @@
 package com.example.moviecharacterapi.Models;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,17 +29,12 @@ public class Movie {
 
     private String trailer;
 
-    @ManyToOne
-    @JoinColumn(name = "franchise_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="franchise_id")
     private Franchise franchise;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="movie_character",
-            joinColumns = @JoinColumn(name="movie_id"),
-            inverseJoinColumns = @JoinColumn(name="character_id")
-
-    )
+    @ManyToMany
+    @JoinTable(name="movie_character",joinColumns = @JoinColumn(name="movie_id",referencedColumnName = "id"),inverseJoinColumns =@JoinColumn(name="character_id",referencedColumnName = "id") )
     private Set<Character> characters;
 
 }

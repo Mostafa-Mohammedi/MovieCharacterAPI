@@ -1,8 +1,9 @@
 package com.example.moviecharacterapi.Controller;
 import com.example.moviecharacterapi.Mapper.FranchiseMapper;
-import com.example.moviecharacterapi.Models.CharacterDTO.CharacterDTO;
+import com.example.moviecharacterapi.Models.Character;
 import com.example.moviecharacterapi.Models.FranchiseDTO.FranchiseDTO;
 import com.example.moviecharacterapi.Models.FranchiseDTO.FranchiseAllDTO;
+import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Models.MovieDTO.MovieDTO;
 import com.example.moviecharacterapi.Services.Franchise.FranchiseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collection;
 
 @RestController
 @RequestMapping(path = "api/v1/Franchise")
@@ -27,6 +29,7 @@ public class FranchiseController {
         this.franchiseService = franchiseService;
         this.franchiseMapper = franchiseMapper;
     }
+
 
 
     @GetMapping("/getAll")
@@ -51,9 +54,37 @@ public class FranchiseController {
     public ResponseEntity findAllFranchise(){
         return ResponseEntity.ok(franchiseMapper.listFranchiseDTo(franchiseService.findAll()));
     }
-    /*
 
-    @Operation(summary = "Find all the movies from franchise")
+
+
+
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Finds a franchise by Id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode =  "200",
+                    description = "Succeeded fetching",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = FranchiseDTO.class))
+                    }),
+            @ApiResponse(
+                    responseCode =  "500",
+                    description = "Movies doesnt exist with id: with supplied id",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    })
+    })
+    public ResponseEntity findfranchiseById(@PathVariable int id){
+        return ResponseEntity.ok(franchiseMapper.franchiseDTO(franchiseService.findById(id)));
+    }
+
+
+
+
+     @Operation(summary = "Find all the movies from franchise")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -83,30 +114,6 @@ public class FranchiseController {
     public ResponseEntity findAllMovieInFranchiseById(@PathVariable int id){
         return ResponseEntity.ok(franchiseMapper.listMovieDTO(franchiseService.getAllMoviesInfranchise(id)));
     }
-
-     */
-    @GetMapping("/{id}")
-    @Operation(summary = "Finds a franchise by Id")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode =  "200",
-                    description = "Succeeded fetching",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = FranchiseDTO.class))
-                    }),
-            @ApiResponse(
-                    responseCode =  "500",
-                    description = "Movies doesnt exist with id: with supplied id",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = ProblemDetail.class))
-                    })
-    })
-    public ResponseEntity findfranchiseById(@PathVariable int id){
-        return ResponseEntity.ok(franchiseMapper.franchiseDTO(franchiseService.findById(id)));
-    }
-
 
     @PostMapping
     public ResponseEntity createFranchise(@RequestBody FranchiseDTO franchise) throws URISyntaxException {
@@ -160,5 +167,16 @@ public class FranchiseController {
         franchiseService.deleteById(id);
         return  ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/getAllCharacter/{franchise_Id}/{movie_Id}")
+    public ResponseEntity<Collection<Character>> getAllCharacterFromFranchise(@PathVariable int franchise_Id, @PathVariable int movie_Id){
+
+       return  ResponseEntity.ok(franchiseService.getAllCharacterFromFranchise(franchise_Id, movie_Id));
+
+
+    }
+
+
+
 
 }

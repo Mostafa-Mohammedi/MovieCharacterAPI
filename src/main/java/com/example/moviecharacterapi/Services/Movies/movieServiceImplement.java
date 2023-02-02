@@ -110,7 +110,7 @@ public class movieServiceImplement implements MovieService{
     public void deleteById(Integer id) {
         if(movieRepository.existsById(id)){
             Movie movieDelete = movieRepository.findById(id).get();
-            movieDelete.getCharacters().forEach(s -> s.setMovies(null));
+            movieDelete.setCharacters(null);
             movieRepository.delete(movieDelete);
         }
         else{

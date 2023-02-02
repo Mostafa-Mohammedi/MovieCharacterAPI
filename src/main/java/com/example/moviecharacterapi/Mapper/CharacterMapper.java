@@ -12,10 +12,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * the mapper class create a mapping for the DTO and the Entity class
- *
- */
+
 @Mapper(componentModel = "spring")
 public abstract class CharacterMapper {
     @Mapping(target = "movies", source = "movies", qualifiedByName = "listTesting")

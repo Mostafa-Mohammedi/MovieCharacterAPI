@@ -16,12 +16,8 @@ INSERT INTO character (fullname,alias,gender,picture) VALUES ('Robert Pattinson'
 INSERT INTO character (fullname,alias,gender,picture) VALUES ('Zoe Isabella', 'Zoe','Female','https://www.celebplasticsurgeryonline.com/wp-content/uploads/2015/03/27.jpg');
 INSERT INTO character (fullname,alias,gender,picture) VALUES ('Paul Dano', 'Paul','Male','https://vignette.wikia.nocookie.net/dcmovies/images/0/02/Paul_Dano.jpg/revision/latest?cb=20191017183813');
 
-
-INSERT INTO movie_character (movie_id,character_id) VALUES (2,1);
-INSERT INTO movie_character (movie_id,character_id) VALUES (3,1);
 INSERT INTO movie_character (movie_id,character_id) VALUES (1,1);
 INSERT INTO movie_character (movie_id,character_id) VALUES (2,2);
-INSERT INTO movie_character (movie_id,character_id) VALUES (3,2);
-INSERT INTO movie_character (movie_id,character_id) VALUES (1,4);
-INSERT INTO movie_character (movie_id,character_id) VALUES (2,5);
-INSERT INTO movie_character (movie_id,character_id) VALUES (3,6);
+INSERT INTO movie_character (movie_id,character_id) VALUES (3,3);
+
+

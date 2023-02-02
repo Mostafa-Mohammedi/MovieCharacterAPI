@@ -1,5 +1,6 @@
 package com.example.moviecharacterapi.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,7 +23,8 @@ public class Character {
     private String gender;
 
     private String picture;
-    @ManyToMany(mappedBy ="characters" )
+
+    @ManyToMany
     private Set<Movie> movies;
 
 }

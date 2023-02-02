@@ -19,12 +19,8 @@ public class Franchise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-
     private String description;
-
-    @OneToMany(mappedBy = "franchise")
-    private Set <Movie> movies;
-
-
+    @OneToMany(mappedBy = "franchise",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Movie> movies;
 
 }

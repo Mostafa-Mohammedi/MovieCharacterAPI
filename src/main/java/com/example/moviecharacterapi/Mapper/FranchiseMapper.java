@@ -4,6 +4,7 @@ import com.example.moviecharacterapi.Models.FranchiseDTO.FranchiseAllDTO;
 import com.example.moviecharacterapi.Models.FranchiseDTO.FranchiseDTO;
 import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Models.MovieDTO.MovieAllDTO;
+import com.example.moviecharacterapi.Models.MovieDTO.MovieDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -23,7 +24,7 @@ public abstract class  FranchiseMapper {
 
     public abstract Franchise createFranchise(FranchiseDTO franchiseCreateDTO);
 
-    //public abstract Collection<MovieAllDTO> listMovieDTO(Collection<Movie> movies);
+    public abstract Collection<MovieDTO> listMovieDTO(Collection<Movie> movies);
     public abstract Collection<FranchiseAllDTO> listFranchiseDTo(Collection<Franchise> franchises);
     @Named(value = "listMovies")
     Set<Integer> map(Set<Movie> value){
