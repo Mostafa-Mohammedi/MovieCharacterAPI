@@ -51,6 +51,7 @@ public class FranchiseController {
     public ResponseEntity findAllFranchise(){
         return ResponseEntity.ok(franchiseMapper.listFranchiseDTo(franchiseService.findAll()));
     }
+    /*
 
     @Operation(summary = "Find all the movies from franchise")
     @ApiResponses(value = {
@@ -82,6 +83,8 @@ public class FranchiseController {
     public ResponseEntity findAllMovieInFranchiseById(@PathVariable int id){
         return ResponseEntity.ok(franchiseMapper.listMovieDTO(franchiseService.getAllMoviesInfranchise(id)));
     }
+
+     */
     @GetMapping("/{id}")
     @Operation(summary = "Finds a franchise by Id")
     @ApiResponses(value = {
@@ -104,7 +107,9 @@ public class FranchiseController {
         return ResponseEntity.ok(franchiseMapper.franchiseDTO(franchiseService.findById(id)));
     }
 
-    public ResponseEntity createCharacter(@RequestBody FranchiseDTO franchise) throws URISyntaxException {
+
+    @PostMapping
+    public ResponseEntity createFranchise(@RequestBody FranchiseDTO franchise) throws URISyntaxException {
         franchiseService.add(franchiseMapper.createFranchise(franchise));
         URI uri = new URI("api/v1/character/add/" + franchise.getId());
         return ResponseEntity.created(uri).build();
@@ -133,6 +138,27 @@ public class FranchiseController {
         }
         franchiseService.update(franchiseMapper.updateFranchise(franchise));
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @Operation(summary = "delete Franchise from database")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "delet the franchise from database",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    })
+    })
+    public ResponseEntity deleteById(@PathVariable int id){
+        franchiseService.deleteById(id);
+        return  ResponseEntity.noContent().build();
     }
 
 }

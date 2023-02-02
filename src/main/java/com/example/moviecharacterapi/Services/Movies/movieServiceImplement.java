@@ -24,15 +24,26 @@ public class movieServiceImplement implements MovieService{
         this.characterRepository = characterRepository;
     }
 
+    /**
+     * Method for finding a movie by id. The findBy id JPA from the franchise repository
+     * @param id takes the integer as id
+     * @return the movie that it find by id
+     */
     @Override
     public Movie findById(Integer id) {
          return  movieRepository.findById(id).orElseThrow(() -> new MovieCustomException(id));
     }
 
+
+    /**
+     * Method for finding alle the movie  check if the database is empty or first
+     * @return returns a list of movie
+     */
     @Override
     public Collection<Movie> findAll() {
         if(movieRepository.findAll().size() != 0){
-            return movieRepository.findAll();
+            Collection<Movie> movies= movieRepository.findAll();
+            return movies;
         }
 
         else{
@@ -40,6 +51,12 @@ public class movieServiceImplement implements MovieService{
         }
     }
 
+
+    /**
+     * Takes a movie object and saves it to the database
+     * @param entity takes the movie object
+     * @return the movie object
+     */
     @Override
     public Movie add(Movie entity) {
 
@@ -52,12 +69,15 @@ public class movieServiceImplement implements MovieService{
         throw new MovieCustomException("movie already exist ");
     }
 
+    /**
+     * Takes a movie object and update the data
+     * @param movie takes the movie object
+     * @return the saved movie object
+     */
     @Override
     public Movie update(Movie movie) {
         return movieRepository.save(movie);
     }
-
-
 
     @Override
     public void updateCharacterInMovie(int movieId, int[] characters) {
@@ -70,26 +90,32 @@ public class movieServiceImplement implements MovieService{
         for (int id: characters) {
             characterSet.add(characterRepository.findById(id).get());
         }
-        movie.setCharacter(characterSet);
+        movie.setCharacters(characterSet);
         movieRepository.save(movie);
     }
 
     @Override
     public Collection<Character> getCharacterMovie(int movieId) {
-        return movieRepository.findById(movieId).get().getCharacter();
+        return movieRepository.findById(movieId).get().getCharacters();
     }
 
 
+    /**
+     * Method for checking if the franchise exist in the database
+     * takes the entity and sets the related content to null
+     * delets the franchise
+     * @param id takes an id as integer
+     */
     @Override
-//    @Transactional
     public void deleteById(Integer id) {
         if(movieRepository.existsById(id)){
             Movie movieDelete = movieRepository.findById(id).get();
-            movieDelete.getCharacter().forEach(s -> s.setMovies(null));
+            movieDelete.getCharacters().forEach(s -> s.setMovies(null));
             movieRepository.delete(movieDelete);
         }
         else{
             logger.warn("No movie exists with ID: " + id);        }
 
     }
+
 }

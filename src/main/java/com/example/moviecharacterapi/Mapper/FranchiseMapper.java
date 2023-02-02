@@ -7,26 +7,29 @@ import com.example.moviecharacterapi.Models.MovieDTO.MovieAllDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+/**
+ * the mapper class create a mapping for the DTO and the Entity class
+ *
+ */
 @Mapper(componentModel = "spring")
-public interface FranchiseMapper {
+public abstract class  FranchiseMapper {
     @Mapping(target = "movies", qualifiedByName = "listMovies")
-    FranchiseAllDTO franchiseDTO(Franchise franchise);
-    Franchise updateFranchise(FranchiseDTO updateFranchiseDTO);
+   public abstract FranchiseAllDTO franchiseDTO(Franchise franchise);
+    public abstract Franchise updateFranchise(FranchiseDTO updateFranchiseDTO);
 
-    Franchise createFranchise(FranchiseDTO franchiseCreateDTO);
+    public abstract Franchise createFranchise(FranchiseDTO franchiseCreateDTO);
 
-    Collection<MovieAllDTO> listMovieDTO(Collection<Movie> movies);
-    Collection<FranchiseAllDTO> listFranchiseDTo(Collection<Franchise> franchises);
+    //public abstract Collection<MovieAllDTO> listMovieDTO(Collection<Movie> movies);
+    public abstract Collection<FranchiseAllDTO> listFranchiseDTo(Collection<Franchise> franchises);
     @Named(value = "listMovies")
-    default Set<Integer> map(Set<Movie> value){
+    Set<Integer> map(Set<Movie> value){
         if(value == null){
             return null;
         }
         return value.stream().map(Movie::getId).collect(Collectors.toSet());
     }
-
 }

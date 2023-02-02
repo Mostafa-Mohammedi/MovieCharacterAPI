@@ -5,6 +5,11 @@ import lombok.Data;
 
 import java.util.Set;
 
+
+/**
+ * the Franchise class used as an entity to create the database
+ * we used the lombok to set getters and setters
+ */
 @Entity
 @Data
 public class Franchise {

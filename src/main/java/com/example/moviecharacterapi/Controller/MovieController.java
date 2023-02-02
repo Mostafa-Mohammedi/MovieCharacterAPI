@@ -1,6 +1,5 @@
 package com.example.moviecharacterapi.Controller;
 import com.example.moviecharacterapi.Mapper.MovieMapper;
-import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Models.MovieDTO.MovieDTO;
 import com.example.moviecharacterapi.Models.MovieDTO.MovieAllDTO;
 import com.example.moviecharacterapi.Services.Movies.MovieService;
@@ -179,7 +178,4 @@ public class MovieController {
         movieService.updateCharacterInMovie(id,characters);
         return  ResponseEntity.noContent().build();
     }
-
-
-
 }

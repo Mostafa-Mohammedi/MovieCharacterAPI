@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Movie JPA repository is in charge of the crud operation for movies
+ */
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
 

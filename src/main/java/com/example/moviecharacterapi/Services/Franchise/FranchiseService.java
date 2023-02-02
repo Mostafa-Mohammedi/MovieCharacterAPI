@@ -5,6 +5,10 @@ import com.example.moviecharacterapi.Services.CrudServices;
 
 import java.util.Collection;
 
+/**
+ * The franchise service is in charge of the extra functionality for character class
+ *
+ */
 public interface FranchiseService extends CrudServices<Franchise,  Integer> {
 
     void updateMoviesInFranchise(int franchiseId, int[] listmovieId);

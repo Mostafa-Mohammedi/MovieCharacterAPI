@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.util.Set;
 
+/**
+ * Method for getting movies with the relationship
+ */
+
 @Data
 public class MovieAllDTO {
     private int Id;

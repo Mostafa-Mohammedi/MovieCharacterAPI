@@ -3,6 +3,9 @@ package com.example.moviecharacterapi.CustomException;
 
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * custom exception for movies
+ */
 public class MovieCustomException extends EntityNotFoundException {
 
     public MovieCustomException(String message) {

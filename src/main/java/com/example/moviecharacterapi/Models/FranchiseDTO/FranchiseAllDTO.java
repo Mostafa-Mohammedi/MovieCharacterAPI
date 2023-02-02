@@ -4,6 +4,12 @@ import lombok.Data;
 
 import java.util.Set;
 
+
+
+/**
+ * Method for getting character without the relationship
+ */
+
 @Data
 public class FranchiseAllDTO {
 

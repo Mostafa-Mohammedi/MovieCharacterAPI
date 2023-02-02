@@ -1,14 +1,13 @@
 package com.example.moviecharacterapi.Models;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
 
 import java.util.Set;
 
-import static jakarta.persistence.CascadeType.DETACH;
-import static jakarta.persistence.CascadeType.PERSIST;
-import static org.hibernate.annotations.OnDeleteAction.*;
-
+/**
+ * the Movie class used as an entity to create the database
+ * we used the lombok to set getters and setters
+ */
 @Entity
 @Data
 public class Movie {
@@ -32,11 +31,13 @@ public class Movie {
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "movies")
-    private Set<Character> character;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="movie_character",
+            joinColumns = @JoinColumn(name="movie_id"),
+            inverseJoinColumns = @JoinColumn(name="character_id")
 
-
-
-
+    )
+    private Set<Character> characters;
 
 }

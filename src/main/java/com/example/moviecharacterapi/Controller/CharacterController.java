@@ -118,6 +118,28 @@ public class CharacterController {
     }
 
 
+    @DeleteMapping("/delete/{id}")
+    @Operation(summary = "delete character from database")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "character deleted",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    })
+    })
+    public ResponseEntity deleteById(@PathVariable int id){
+        characterService.deleteById(id);
+        return  ResponseEntity.noContent().build();
+    }
+
+
 
 
 

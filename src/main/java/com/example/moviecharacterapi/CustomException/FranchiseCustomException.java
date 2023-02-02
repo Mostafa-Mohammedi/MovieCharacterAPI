@@ -2,6 +2,9 @@ package com.example.moviecharacterapi.CustomException;
 
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * custom exception for franchise
+ */
 public class FranchiseCustomException extends EntityNotFoundException {
 
     public FranchiseCustomException(String message) {
