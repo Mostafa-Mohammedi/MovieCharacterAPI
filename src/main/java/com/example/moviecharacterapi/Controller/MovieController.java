@@ -1,4 +1,5 @@
 package com.example.moviecharacterapi.Controller;
+import com.example.moviecharacterapi.Mapper.CharacterMapper;
 import com.example.moviecharacterapi.Mapper.MovieMapper;
 import com.example.moviecharacterapi.Models.MovieDTO.MovieDTO;
 import com.example.moviecharacterapi.Models.MovieDTO.MovieAllDTO;
@@ -20,10 +21,11 @@ import java.net.URISyntaxException;
 public class MovieController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
-
-    public MovieController(MovieService movieService, MovieMapper movieMapper) {
+    private final CharacterMapper characterMapper;
+    public MovieController(MovieService movieService, MovieMapper movieMapper, CharacterMapper characterMapper) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
+        this.characterMapper = characterMapper;
     }
     @GetMapping("/getAll")
     @Operation(summary = "Gets all the movies in the database")
@@ -67,7 +69,7 @@ public class MovieController {
                     })
     })
     public ResponseEntity findAllCharacterInMovie(@PathVariable int id){
-        return ResponseEntity.ok(movieService.getCharacterMovie(id));
+        return ResponseEntity.ok(characterMapper.listCharacter(movieService.getCharacterMovie(id)));
     }
     @GetMapping("/{id}")
     @Operation(summary = "Finds a movie entity by Id")
@@ -183,7 +185,7 @@ public class MovieController {
     @GetMapping("/getCharacter/movie/{id}")
     public ResponseEntity getCharacterInMovies(@PathVariable int id){
         movieService.getCharacterMovie(id);
-        return  ResponseEntity.ok(movieService.getCharacterMovie(id));
+        return  ResponseEntity.ok(characterMapper.listCharacter(movieService.getCharacterMovie(id)));
     }
 
 }

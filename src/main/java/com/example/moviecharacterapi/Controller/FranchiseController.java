@@ -1,9 +1,9 @@
 package com.example.moviecharacterapi.Controller;
+import com.example.moviecharacterapi.Mapper.CharacterMapper;
 import com.example.moviecharacterapi.Mapper.FranchiseMapper;
 import com.example.moviecharacterapi.Models.Character;
 import com.example.moviecharacterapi.Models.FranchiseDTO.FranchiseDTO;
 import com.example.moviecharacterapi.Models.FranchiseDTO.FranchiseAllDTO;
-import com.example.moviecharacterapi.Models.Movie;
 import com.example.moviecharacterapi.Models.MovieDTO.MovieDTO;
 import com.example.moviecharacterapi.Services.Franchise.FranchiseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,10 +24,12 @@ import java.util.Collection;
 public class FranchiseController {
     private final FranchiseService franchiseService;
     private final FranchiseMapper franchiseMapper;
+    private final CharacterMapper characterMapper;
 
-    public FranchiseController(FranchiseService franchiseService, FranchiseMapper franchiseMapper) {
+    public FranchiseController(FranchiseService franchiseService, FranchiseMapper franchiseMapper, CharacterMapper characterMapper) {
         this.franchiseService = franchiseService;
         this.franchiseMapper = franchiseMapper;
+        this.characterMapper = characterMapper;
     }
 
 
