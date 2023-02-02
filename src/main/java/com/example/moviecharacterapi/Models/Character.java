@@ -5,14 +5,16 @@ import lombok.Data;
 
 import java.util.Set;
 
+/**
+ * the character class used as an entity to create the database
+ * we used the lombok to set getters and setters
+ */
 @Entity
 @Data
 public class Character {
-
     @Id
-    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int character_Id;
+    private int id;
     private String fullname;
 
     private String alias;
@@ -20,11 +22,7 @@ public class Character {
     private String gender;
 
     private String picture;
-
-    @ManyToMany
+    @ManyToMany(mappedBy ="characters" )
     private Set<Movie> movies;
-
-
-
 
 }
