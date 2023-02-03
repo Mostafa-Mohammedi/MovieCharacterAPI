@@ -118,6 +118,30 @@ public class FranchiseController {
     }
 
     @PostMapping
+    @Operation(summary = "Add a new franchise")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "found all the character",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = FranchiseDTO.class))
+                    }),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad request",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    }),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "internal serverer error",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    })
+    })
     public ResponseEntity createFranchise(@RequestBody FranchiseDTO franchise) throws URISyntaxException {
         franchiseService.add(franchiseMapper.createFranchise(franchise));
         URI uri = new URI("api/v1/character/add/" + franchise.getId());
@@ -169,6 +193,7 @@ public class FranchiseController {
         franchiseService.deleteById(id);
         return  ResponseEntity.noContent().build();
     }
+
 
     @GetMapping("/getAllCharacter/{franchise_Id}/{movie_Id}")
     public ResponseEntity<Collection<Character>> getAllCharacterFromFranchise(@PathVariable int franchise_Id, @PathVariable int movie_Id){

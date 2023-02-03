@@ -17,8 +17,6 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-
-
     private String genre;
 
     private String year;
@@ -34,7 +32,9 @@ public class Movie {
     private Franchise franchise;
 
     @ManyToMany
-    @JoinTable(name="movie_character",joinColumns = @JoinColumn(name="movie_id",referencedColumnName = "id"),inverseJoinColumns =@JoinColumn(name="character_id",referencedColumnName = "id") )
+    @JoinTable(name="movie_character",joinColumns =
+    @JoinColumn(name="movie_id",referencedColumnName = "id"),inverseJoinColumns =
+    @JoinColumn(name="character_id",referencedColumnName = "id") )
     private Set<Character> characters;
 
 }

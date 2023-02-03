@@ -177,15 +177,11 @@ public class MovieController {
                                     schema = @Schema(implementation = ProblemDetail.class))
                     })
     })
+
     public ResponseEntity updateList(@PathVariable int id,@RequestBody int[] characters){
         movieService.updateCharacterInMovie(id,characters);
         return  ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/getCharacter/movie/{id}")
-    public ResponseEntity getCharacterInMovies(@PathVariable int id){
-        movieService.getCharacterMovie(id);
-        return  ResponseEntity.ok(characterMapper.listCharacter(movieService.getCharacterMovie(id)));
-    }
 
 }
